@@ -1,10 +1,15 @@
 package com.dviewer.app.ui.viewer
 
 import android.net.Uri
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.fragment.compose.AndroidFragment
+import androidx.pdf.viewer.fragment.PdfViewerFragment
 
 @Composable
 fun ViewerScreen(documentUri: Uri) {
-    Text("Viewer: $documentUri")
+    AndroidFragment<PdfViewerFragment>(modifier = Modifier.fillMaxSize()) { fragment ->
+        fragment.documentUri = documentUri
+    }
 }
