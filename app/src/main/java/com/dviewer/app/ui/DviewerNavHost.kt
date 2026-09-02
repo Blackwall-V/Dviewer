@@ -18,13 +18,23 @@ fun DviewerNavHost(navController: NavHostController = rememberNavController()) {
         composable(HOME_ROUTE) {
             HomeRoute(
                 onDocumentReady = { uri ->
-                    navController.navigate("viewer/${Uri.encode(uri.toString())}")
+                    navController.navigate("${VIEWER_ROUTE.substringBefore("{")}${Uri.encode(uri.toString())}")
                 },
             )
         }
         composable(VIEWER_ROUTE) { backStackEntry ->
-            val encodedUri = backStackEntry.arguments?.getString("uri").orEmpty()
-            ViewerScreen(documentUri = Uri.parse(Uri.decode(encodedUri)))
+            ViewerScreen(documentUri = documentUriFromRouteArg(backStackEntry.arguments?.getString("uri")))
         }
     }
 }
+
+/**
+ * Converts the raw `uri` nav-graph argument into a [Uri].
+ *
+ * Navigation-Compose already percent-decodes path arguments before they reach
+ * [android.os.Bundle.getString], so this must NOT apply an additional [Uri.decode] call -
+ * doing so would double-decode any real percent-escaped `content://` Uri (e.g. turning the
+ * `%3A`/`%2F` in an ExternalStorageProvider Uri into literal `:`/`/`, corrupting the document
+ * id).
+ */
+fun documentUriFromRouteArg(arg: String?): Uri = Uri.parse(arg.orEmpty())
