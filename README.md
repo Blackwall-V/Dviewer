@@ -62,3 +62,7 @@ Then:
 
 - [`docs/superpowers/specs/2026-09-02-pdf-viewer-design.md`](docs/superpowers/specs/2026-09-02-pdf-viewer-design.md) — the design spec Phase 1 was built from.
 - [`docs/superpowers/plans/2026-09-02-pdf-viewer.md`](docs/superpowers/plans/2026-09-02-pdf-viewer.md) — the implementation plan, task by task.
+
+## License
+
+[MIT](LICENSE)

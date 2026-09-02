@@ -9,3 +9,5 @@ app/build
 .externalNativeBuild
 .cxx
 *.apk
+.kotlin/
+.claude/worktrees/
